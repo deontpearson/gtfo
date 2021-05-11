@@ -1,5 +1,7 @@
 """Search binaries from GTFOBins within command line
 """
+from typing import List
+
 import requests
 import yaml
 from bs4 import BeautifulSoup
@@ -8,41 +10,43 @@ from tabulate import tabulate
 from utils import colors
 
 URL = "https://gtfobins.github.io/"
-RAW_URL = "https://raw.githubusercontent.com/GTFOBins/GTFOBins.github.io/master/_gtfobins/{}.md"
+RAW_URL = (
+    "https://raw.githubusercontent.com/"
+    "GTFOBins/GTFOBins.github.io/master/_gtfobins/{}.md"
+)
 
 
-def get_bins():
-    """Search the binary in the list
-    """
+def get_bins() -> List:
+    """Search the binary in the list"""
 
     r = requests.get(URL)
-    soup = BeautifulSoup(r.text, 'lxml')
+    soup = BeautifulSoup(r.text, "lxml")
 
-    tds = soup.find_all('a', class_='bin-name')
+    tds = soup.find_all("a", class_="bin-name")
     bins = [i.text for i in tds]
 
     return bins
 
 
-def list_bins():
-    """Display list of all the available binaries
-    """
+def list_bins() -> None:
+    """Display list of all the available binaries"""
 
     bins = get_bins()
 
-    def table(A, n=10): return [A[i:i+n] for i in range(0, len(A), n)]
+    def table(A: List, n: int = 10) -> List:
+        return [A[i : i + n] for i in range(0, len(A), n)]
 
-    print(tabulate(table(bins), tablefmt='fancy_grid'))
+    print(tabulate(table(bins), tablefmt="fancy_grid"))
 
 
-def parse(data: dict):
+def parse(data: dict) -> None:
     """Parse the data in the proper displaying format
 
     Arguments:
         data {dict} -- content that is to be displayed
     """
 
-    def form(val):
+    def form(val: str) -> str:
         """To format the "code" that is being printed
 
         The code section had `\n` which kinda breaks
@@ -63,13 +67,13 @@ def parse(data: dict):
 
         for cat in category:
             if "description" in cat:
-                print("# " + colors(cat['description'], 93))
-            print("Code:\t" + colors(form(cat['code']), 92))
+                print("# " + colors(cat["description"], 93))
+            print("Code:\t" + colors(form(cat["code"]), 92))
             print("Type:\t" + colors(sec, 91))
             print("\n")
 
 
-def gtfobins(bin_name: str):
+def gtfobins(bin_name: str) -> None:
     """Search binaries from GTFOBins within command line
 
     Arguments:

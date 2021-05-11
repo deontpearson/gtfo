@@ -1,10 +1,7 @@
 #! /usr/bin/env python3
 
 import argparse
-import signal
 import sys
-
-from pyfiglet import figlet_format
 
 from gtfobins import get_bins, gtfobins, list_bins
 from lolbas import get_exe, list_exe, lolbas
@@ -14,7 +11,7 @@ GTFOURL = "https://gtfobins.github.io/"
 LOLURL = "https://lolbas-project.github.io/"
 
 
-def givelink(name):
+def givelink(name: str) -> None:
     """Show the link of the give binary or exe
 
     Arguments:
@@ -30,21 +27,32 @@ def givelink(name):
         sys.exit(0)
     name = colors(name, 93, True)
 
-    print("--> {n} \t{dash}>\t {link}".format(n=name, dash=colors("-"*20, 93,), link=url))
+    print(
+        "--> {n} \t{dash}>\t {link}".format(
+            n=name,
+            dash=colors(
+                "-" * 20,
+                93,
+            ),
+            link=url,
+        )
+    )
 
 
-def signal_handler(signal, frame):
-    print(colors('\n\nYou pressed Ctrl+C!', 91))
+def signal_handler() -> None:
+    print(colors("\n\nYou pressed Ctrl+C!", 91))
     sys.exit(0)
 
 
-def main():
+def cli() -> None:
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-b", "--bins", help="Search binaries on GTFOBins")
     group.add_argument("-e", "--exe", help="Search Windows exe on LOLBAS")
     group.add_argument("-w", "--link", help="gtfobins link to the page")
-    group.add_argument("-ls", "--list", help="list all the available binaries", choices=["bins", "exe"])
+    group.add_argument(
+        "-ls", "--list", help="list all the available binaries", choices=["bins", "exe"]
+    )
 
     args = parser.parse_args()
 
@@ -61,10 +69,3 @@ def main():
         list_exe()
     elif args.list == "bins":
         list_bins()
-
-
-if __name__ == "__main__":
-    signal.signal(signal.SIGINT, signal_handler)
-    print(colors(figlet_format('# gtfo', font='big'), 92))
-    print("\n")
-    main()

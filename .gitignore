@@ -1,2 +1,43 @@
-__pycache__/
-*.sqlite
+# folders
+.vscode
+tmp
+notebooks
+
+# errbot
+data
+security_bot.log
+
+# kubernetes secrets
+security-bot.yaml
+google-service-account.yaml
+
+# boilerplate
+.ipynb_checkpoints
+.vscode
+.idea
+.mypy_cache
+*.egg
+*.egg-info
+*.pyc
+*$py.class
+*~
+.coverage
+coverage.xml
+build/
+dist/
+.tox/
+nosetests.xml
+.python-version
+env*/
+venv*/
+tmp/
+Data.fs*
+*.sublime-project
+*.sublime-workspace
+.*.sw?
+.sw?
+.DS_Store
+coverage
+test
+htmlcov
+.coverage

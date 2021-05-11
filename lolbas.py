@@ -1,3 +1,5 @@
+from typing import Dict, List
+
 import requests
 import yaml
 from bs4 import BeautifulSoup
@@ -6,10 +8,13 @@ from tabulate import tabulate
 from utils import colors
 
 URL = "https://lolbas-project.github.io/"
-RAW_URL = "https://raw.githubusercontent.com/LOLBAS-Project/LOLBAS-Project.github.io/master/_lolbas/"
+RAW_URL = (
+    "https://raw.githubusercontent.com/"
+    "LOLBAS-Project/LOLBAS-Project.github.io/master/_lolbas/"
+)
 
 
-def get_exe():
+def get_exe() -> Dict:
     """Get a dictionary of all the binaries.
 
     The format of the dictionary is:
@@ -18,28 +23,28 @@ def get_exe():
 
     exe = dict()
     r = requests.get(URL)
-    soup = BeautifulSoup(r.text, 'lxml')
+    soup = BeautifulSoup(r.text, "lxml")
 
-    tds = soup.find_all('a', class_='bin-name')
+    tds = soup.find_all("a", class_="bin-name")
 
     for i in tds:
-        exe[i.text] = i['href'][8:][:-1]
+        exe[i.text] = i["href"][8:][:-1]
 
     return exe
 
 
-def list_exe():
-    """Display list of all the executables
-    """
+def list_exe() -> None:
+    """Display list of all the executables"""
     exe = get_exe()
 
-    def table(A, n=7): return [A[i:i+n] for i in range(0, len(A), n)]
+    def table(A: List, n: int = 7) -> List:
+        return [A[i : i + n] for i in range(0, len(A), n)]
 
     tab = table(list(exe.keys()))
     print(tabulate(tab, tablefmt="fancy_grid"))
 
 
-def parse(data):
+def parse(data: Dict) -> None:
     """Parse and print the commands
 
     The yml file contains the following fields: Description, Command,
@@ -55,17 +60,17 @@ def parse(data):
     """
 
     # TODO: Figure out a way to improve this printing
-    cmd = data['Commands']
+    cmd = data["Commands"]
 
     for c in cmd:
-        print("# " + colors(c['Description'], 93) + "\n")
+        print("# " + colors(c["Description"], 93) + "\n")
         print("CMD:\t\t" + colors(c["Command"], 92))
         print("Category:\t" + colors(c["Category"], 91))
         print("Privileges:\t" + colors(c["Privileges"], 91))
         print("\n")
 
 
-def lolbas(name: str):
+def lolbas(name: str) -> None:
     """Search binaries from LOLBAS within command line
 
     Arguments:
@@ -77,11 +82,11 @@ def lolbas(name: str):
 
     exes = get_exe()
     if name in exes.keys():
-        url = RAW_URL + exes[name] + '.md'
+        url = RAW_URL + exes[name] + ".md"
         r = requests.get(url).text
         data = list(yaml.load_all(r, Loader=yaml.SafeLoader))[0]
         parse(data)
     else:
         print(colors("[!] Binary not found on LOLBAS", 91))
-        #TODO: Match user input and make suggestion for search
+        # TODO: Match user input and make suggestion for search
         print(colors("[!] Make sure to provide name with proper extension", 91))
