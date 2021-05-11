@@ -2,27 +2,25 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/mzfr/liffy/graphs/commit-activity)
 
 
-<h1 align="center">gtfo</h1>
+# gtfo
 
-![gtfo in action](Images/gtfo.png)
+A tool purely written in python3 to search binaries on [GTFOBins](https://gtfobins.github.io/) and [LOLBAS](https://lolbas-project.github.io/).
 
-<p align="center">
-  <a href="https://github.com/mzfr/gtfo/wiki">gtfo Wiki</a> •
-  <a href="https://github.com/mzfr/gtfo/wiki/Introduction">Introduction</a> •
-  <a href="https://github.com/mzfr/gtfo/wiki/Usage">Usage</a> •
-  <a href="https://github.com/mzfr/gtfo/wiki/Installation">Installation</a> •
-  <a href="https://github.com/mzfr/gtfo#gallery">Gallery</a>
-</p>
+## Usage
 
-gtfo is a tool purely written in python3 to search binaries on [GTFOBins](https://gtfobins.github.io/) and [LOLBAS](https://lolbas-project.github.io/).
+```bash
+usage: gtfo [-h] (-b BINS | -e EXE | -w LINK | -ls {bins,exe})
 
-### Features
+optional arguments:
+  -h, --help            show this help message and exit
+  -b BINS, --bins BINS  Search binaries on GTFOBins
+  -e EXE, --exe EXE     Search Windows exe on LOLBAS
+  -w LINK, --link LINK  links to the page of bins/exe
+  -ls {bins,exe}, --list {bins,exe}
+                        list all the available binaries
+```
 
-The only feature of this tool is to give you the ability to search gtfobins and lolbas from terminal.
-
-oh and it also make you stick to your terminal. You won't have to face the bright light of your browser when you find out that vim is marked as SUID on the system you just got reverse shell on but don't know how to exploit that.
-
-### Gallery
+## Examples
 
 * __Searching GTFOBins__
 
@@ -44,22 +42,6 @@ oh and it also make you stick to your terminal. You won't have to face the brigh
 
 ![](Images/errors.png)
 
-### Contribution
-
-* Report a bug
-* Fix something and open a pull request
-* There are some `TODO` in the project. Help me complete those
-
-In any case feel free to open an issue
-
 ## Credits
 
-Thanks to [norbemi](https://twitter.com/norbemi) and [cyrus_and](https://twitter.com/cyrus_and) for creating [GTFOBins](https://gtfobins.github.io/) without that this project won't be in existence.
-
-Also thanks to all the creators of [LOLBAS](https://lolbas-project.github.io/#)
-
-## Support
-
-If you'd like you can buy me some coffee:
-
-<a href="https://www.buymeacoffee.com/mzfr" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+The original repo https://github.com/mzfr/gtfo
