@@ -7,7 +7,7 @@ import yaml
 from bs4 import BeautifulSoup
 from tabulate import tabulate
 
-from utils import colors
+from gtfo.utils import colors
 
 URL = "https://gtfobins.github.io/"
 RAW_URL = (

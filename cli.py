@@ -3,9 +3,9 @@
 import argparse
 import sys
 
-from gtfobins import get_bins, gtfobins, list_bins
-from lolbas import get_exe, list_exe, lolbas
-from utils import colors
+from gtfo.gtfobins import get_bins, gtfobins, list_bins
+from gtfo.lolbas import get_exe, list_exe, lolbas
+from gtfo.utils import colors
 
 GTFOURL = "https://gtfobins.github.io/"
 LOLURL = "https://lolbas-project.github.io/"
@@ -44,7 +44,7 @@ def signal_handler() -> None:
     sys.exit(0)
 
 
-def cli() -> None:
+def run() -> None:
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-b", "--bins", help="Search binaries on GTFOBins")

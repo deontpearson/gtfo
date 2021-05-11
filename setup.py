@@ -32,7 +32,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "gtfo=gtfo:cli",
+            "gtfo=cli:run",
         ]
     },
 )
